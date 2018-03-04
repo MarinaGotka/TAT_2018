@@ -8,10 +8,10 @@ namespace task_DEV2
     /// </summary>
     class CreatorStringOnlyOfEvenIndexes
     {
-        public string str;
-        public CreatorStringOnlyOfEvenIndexes(string str0)
+        public string initialStr;
+        public CreatorStringOnlyOfEvenIndexes(string str)
         {
-            str = str0;
+            initialStr = str;
         }
 
         /// <summary>
@@ -22,9 +22,9 @@ namespace task_DEV2
         public string BuildSubstringOnlyOfEvenIndexes() 
          {
             StringBuilder resultStr = new StringBuilder();
-            for (int i = 0; i < str.Length; i += 2)
+            for (int i = 0; i < initialStr.Length; i += 2)
             {
-                resultStr.Append(str[i]);
+                resultStr.Append(initialStr[i]);
             }
             return resultStr.ToString();
         }

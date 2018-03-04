@@ -7,13 +7,12 @@ namespace task_DEV2
         static void Main(string[] args)
         {
             Console.WriteLine("Intput string: ");
-            string str = Console.ReadLine();
+            string InitStr = Console.ReadLine();
 
-            if (str.Length > 0)
+            if (InitStr.Length > 0)
             {
-                CreatorStringOnlyOfEvenIndexes strEven = new CreatorStringOnlyOfEvenIndexes(str);
-                string res = strEven.BuildSubstringOnlyOfEvenIndexes();
-                Console.WriteLine("String contains with only even indexes: {0} ", res);
+                CreatorStringOnlyOfEvenIndexes NewStr = new CreatorStringOnlyOfEvenIndexes(InitStr);
+                Console.WriteLine("String contains with only even indexes: {0} ", NewStr.BuildSubstringOnlyOfEvenIndexes());
             }
             else
             {

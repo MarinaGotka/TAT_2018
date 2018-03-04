@@ -6,12 +6,12 @@ namespace task_DEV2
     /// <summary>
     ///  This class contains the method for create a new string with only even indexes
     /// </summary>
-    class CreatorStringOnlyOfEvenIndexes
+    class EvenIndexesStringCreator
     {
-        public string str;
-        public CreatorStringOnlyOfEvenIndexes(string str0)
+        public string initialStr;
+        public EvenIndexesStringCreator(string str)
         {
-            str = str0;
+            initialStr = str;
         }
 
         /// <summary>
@@ -21,12 +21,12 @@ namespace task_DEV2
         /// <returns> String contains with only even indexes </returns>
         public string BuildSubstringOnlyOfEvenIndexes() 
          {
-            StringBuilder res = new StringBuilder();
-            for (int i = 0; i < str.Length; i += 2)
+            StringBuilder resultStr = new StringBuilder();
+            for (int i = 0; i < initialStr.Length; i += 2)
             {
-                res.Append(str[i]);
+                resultStr.Append(initialStr[i]);
             }
-            return res.ToString();
+            return resultStr.ToString();
         }
     }
 }

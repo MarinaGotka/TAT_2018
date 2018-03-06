@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Numerics;
 
 namespace task_DEV3
 {
@@ -8,11 +9,11 @@ namespace task_DEV3
     /// </summary>
     class ConverterToAnotherNumeralSystem
     {
-        ulong decNumber;
-        byte radixResult;
+        BigInteger decNumber;
+        short radixResult;
         StringBuilder numberResult;
 
-        public ConverterToAnotherNumeralSystem(ulong number, byte radix)
+        public ConverterToAnotherNumeralSystem(BigInteger number, short radix)
         {
             decNumber = number;
             radixResult = radix;
@@ -24,10 +25,9 @@ namespace task_DEV3
         /// </summary>
         public void ConvertToAnotherNumeralSystem()
         {
-            ulong decNumberTemp = decNumber;
-            while (decNumberTemp > 0)
+            while (decNumber > 0)
             {
-                byte remain = (byte)(decNumberTemp % radixResult);
+                short remain = (byte)(decNumber % radixResult);
                 if (remain < 10)
                 {
                     numberResult.Insert(0, remain);
@@ -37,7 +37,7 @@ namespace task_DEV3
                     char remainSymbol = (char)('A' + remain - 10);
                     numberResult.Insert(0, remainSymbol);
                 }
-                decNumberTemp /= radixResult;
+                decNumber /= radixResult;
             }
         }
 

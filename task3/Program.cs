@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace task_DEV3
 {
@@ -6,14 +7,14 @@ namespace task_DEV3
     {
         static void Main(string[] args)
         {
-            ulong number;
-            byte radix;
+            BigInteger number;
+            short radix;
 
             if (args.Length == 0)
             {
                 Console.WriteLine("Error. No parameters intered.");
             }
-            else if (!ulong.TryParse(args[0], out number) || (!byte.TryParse(args[1], out radix)))
+            else if (!BigInteger.TryParse(args[0], out number) || (!short.TryParse(args[1], out radix)))
             {
                 Console.WriteLine("Error. Incorrect data format.");
             }

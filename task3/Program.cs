@@ -7,26 +7,19 @@ namespace task_DEV3
     {
         static void Main(string[] args)
         {
-            BigInteger number;
-            short radix;
-
-            if (args.Length == 0)
+            if (args.Length < 2)
             {
-                Console.WriteLine("Error. No parameters intered.");
+                Console.WriteLine("Error. Invalid number of parameters entered or no parameters entered. ");
             }
-            else if (!BigInteger.TryParse(args[0], out number) || (!short.TryParse(args[1], out radix)))
+            else if (int.Parse(args[1]) >= 2 || int.Parse(args[1]) <= 20)
             {
-                Console.WriteLine("Error. Incorrect data format.");
-            }
-            else if (radix >= 2 && radix <= 20)
-            {
-                ConverterToAnotherNumeralSystem numberResults = new ConverterToAnotherNumeralSystem(number, radix);
+                ConverterToAnotherNumeralSystem numberResults = new ConverterToAnotherNumeralSystem(BigInteger.Parse(args[0]), int.Parse(args[1]));
                 numberResults.ConvertToAnotherNumeralSystem();
                 numberResults.PrintNumberInNewNumeralSystem();
             }
             else
             {
-                Console.WriteLine("Error. Data can not be converted. ");
+                Console.WriteLine("Error. Data can not be converted. Incorrect data format.");
             }
         }
     }

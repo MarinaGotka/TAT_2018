@@ -10,10 +10,10 @@ namespace task_DEV3
     class ConverterToAnotherNumeralSystem
     {
         BigInteger decNumber;
-        short radixResult;
+        int radixResult;
         StringBuilder numberResult;
 
-        public ConverterToAnotherNumeralSystem(BigInteger number, short radix)
+        public ConverterToAnotherNumeralSystem(BigInteger number, int radix)
         {
             decNumber = number;
             radixResult = radix;
@@ -27,7 +27,7 @@ namespace task_DEV3
         {
             while (decNumber > 0)
             {
-                short remain = (byte)(decNumber % radixResult);
+                int remain = (int)(decNumber % radixResult);
                 if (remain < 10)
                 {
                     numberResult.Insert(0, remain);

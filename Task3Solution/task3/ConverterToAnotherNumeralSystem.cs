@@ -7,25 +7,33 @@ namespace task_DEV3
     /// <summary>
     ///  This class for converting number from decimal to another numeral system from 2 to 20
     /// </summary>
-    class ConverterToAnotherNumeralSystem
+   public class ConverterToAnotherNumeralSystem
     {
         BigInteger decNumber;
         int radixResult;
-        StringBuilder numberResult;
+        StringBuilder numberResult = new StringBuilder();
 
-        public ConverterToAnotherNumeralSystem(BigInteger number, int radix)
+        public ConverterToAnotherNumeralSystem(BigInteger number,int radix)
         {
             decNumber = number;
             radixResult = radix;
-            numberResult = new StringBuilder();
         }
 
         /// <summary>
         /// Method converts decimal number to another numeral system from 2 to 20
         /// </summary>
-        public void ConvertToAnotherNumeralSystem()
+        public string ConvertToAnotherNumeralSystem()
         {
-            while (decNumber > 0)
+            if (radixResult < 2 || radixResult > 20)
+            {
+                throw new FormatException("Error. Data can not be converted. Incorrect data format.");
+            }
+            if (decNumber < 0)
+            {
+                throw new ArgumentException("Error. Data can not be converted. Arguments must be positive.");
+            }
+
+            while (decNumber != 0)
             {
                 int remain = (int)(decNumber % radixResult);
                 if (remain < 10)
@@ -39,6 +47,7 @@ namespace task_DEV3
                 }
                 decNumber /= radixResult;
             }
+            return numberResult.ToString();
         }
 
         /// <summary>

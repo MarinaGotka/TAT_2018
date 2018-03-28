@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C31C54C4-F5BC-4259-90ED-8310BAE9DCA1}</ProjectGuid>
+    <ProjectGuid>{149E02A6-F045-4122-81D1-A8EF502CE7C4}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>task6</RootNamespace>
-    <AssemblyName>task6</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <RootNamespace>task_DEV7</RootNamespace>
+    <AssemblyName>task_DEV7</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
@@ -32,8 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,21 +46,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddGoodsCommander.cs" />
-    <Compile Include="AveragePriceCommander.cs" />
-    <Compile Include="AveragePriceTypeCommander.cs" />
-    <Compile Include="CountAllCommander.cs" />
-    <Compile Include="ExitCommander.cs" />
-    <Compile Include="TypeCountCommander.cs" />
-    <Compile Include="Receiver.cs" />
+    <Compile Include="Car.cs" />
+    <Compile Include="CarBrands\Audi.cs" />
+    <Compile Include="CarBrands\BMW.cs" />
+    <Compile Include="CarBrands\LandRover.cs" />
+    <Compile Include="CarBrands\Mazda.cs" />
+    <Compile Include="Commands\FindCarsFromStorage.cs" />
+    <Compile Include="Commands\FindCarsFromCatalog.cs" />
+    <Compile Include="ICreator.cs" />
+    <Compile Include="Creators\CreatorAudi.cs" />
+    <Compile Include="Creators\CreatorBMW.cs" />
+    <Compile Include="Creators\CreatorLandRover.cs" />
+    <Compile Include="Creators\CreatorMazda.cs" />
+    <Compile Include="Creators\CreatorTesla.cs" />
+    <Compile Include="Creators\CreatorVolksvagen.cs" />
+    <Compile Include="EntryPoint.cs" />
     <Compile Include="ICommand.cs" />
-    <Compile Include="Entry.cs" />
-    <Compile Include="Goods.cs" />
+    <Compile Include="Invoker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserMenu.cs" />
+    <Compile Include="CarBrands\Tesla.cs" />
+    <Compile Include="CarBrands\Volksvagen.cs" />
+    <Compile Include="Receiver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

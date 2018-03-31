@@ -1,5 +1,4 @@
-﻿
-namespace task_7
+﻿namespace task_7
 {
     /// <summary>
     /// Class implements creator interface and create car with type Audi

@@ -46,6 +46,14 @@ namespace task_7
             TypeOfInterior = typeOfInterior;
         }
 
+        public Car()
+        {
+        }
+
+        /// <summary>
+        /// Ovveriding method ToString for Car.
+        /// </summary>
+        /// <returns> Returns Car as a string </returns>
         public override string ToString()
         {
             string line = "Brand: " + Brand +"\n";
@@ -59,9 +67,39 @@ namespace task_7
             return line;
         }
 
-        public Car()
+        /// <summary>
+        /// Ovveriding method Equals for Car.
+        /// </summary>
+        /// <returns> Returns result of compare Cars </returns>
+        public override bool Equals(object obj)
         {
+            if (obj is null)
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            Car other = (Car) obj;
+
+            return (Brand.Equals(other.Brand) && Model.Equals(other.Model) && TypeOfBody.Equals(other.TypeOfBody) 
+                && TypeOfEngine.Equals(other.TypeOfEngine) && TypeOfTransmission.Equals(other.TypeOfTransmission) 
+                && Amount.Equals(other.Amount) && Power.Equals(other.Power) && TypeOfInterior.Equals(other.TypeOfInterior)
+                && ClimateManagement.Equals(other.ClimateManagement));
         }
 
+        /// <summary>
+        /// Ovveriding method GerHashCode for Car.
+        /// </summary>
+        /// <returns> Returns hashCode </returns>
+        public override int GetHashCode()
+        {
+            return (Model.GetHashCode()+ TypeOfBody.GetHashCode());
+        }
     }
 }

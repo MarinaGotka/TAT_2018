@@ -19,13 +19,13 @@ namespace task_7
         /// <summary>
         ///  This methods produses car and sends it to the storage
         /// </summary>
-        public void ProduceCar(Car car)
+        public void ProduceCar(Car car,string path)
         {
             if(car == null)
             {
                 throw new ArgumentNullException("Error. Car is null.");
             }
-            using (StreamWriter sw = new StreamWriter("storage.json", true))
+            using (StreamWriter sw = new StreamWriter(path, true))
             {
                 string json = JsonConvert.SerializeObject(car);
                 sw.WriteLine(json);
@@ -82,9 +82,9 @@ namespace task_7
         /// <summary>
         ///  This method calls methods to load cars from file and to select suitable cars in catalog.
         /// </summary>
-        public IEnumerable<Car> FindCarsFromCatalog(Car car)
+        public IEnumerable<Car> FindCarsFromCatalog(Car car,string path)
         {
-            List<Car> list = LoadCarsFromFile("catalog.json");
+            List<Car> list = LoadCarsFromFile(path);
             return SelectCars(list, car);
         }
 
@@ -113,9 +113,9 @@ namespace task_7
         /// <summary>
         ///  This method calls methods to load cars from file and to select suitable cars in storage.
         /// </summary>
-        public IEnumerable<Car> FindCarsFromStorage(Car car)
+        public IEnumerable<Car> FindCarsFromStorage(Car car,string path)
         {
-            List<Car> list = LoadCarsFromFile("storage.json");
+            List<Car> list = LoadCarsFromFile(path);
             return SelectCars(list, car);
         }
 

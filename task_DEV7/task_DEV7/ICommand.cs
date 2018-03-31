@@ -7,6 +7,6 @@ namespace task_7
     /// </summary>
     public interface ICommand 
     {
-        IEnumerable<Car> Execute(Car car);
+        IEnumerable<Car> Execute(Car car,string path);
     }
 }

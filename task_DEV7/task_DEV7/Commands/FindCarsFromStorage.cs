@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using task_7;
+﻿using System.Collections.Generic;
 
-namespace task_DEV7.Commands
+namespace task_7
 {
     class FindCarsFromStorage : ICommand
     {
@@ -15,9 +10,9 @@ namespace task_DEV7.Commands
             receiver = rec;
         }
 
-        public IEnumerable<Car> Execute(Car car)
+        public IEnumerable<Car> Execute(Car car,string path)
         {
-            return receiver.FindCarsFromStorage(car);
+            return receiver.FindCarsFromStorage(car,path);
         }
     }
 }

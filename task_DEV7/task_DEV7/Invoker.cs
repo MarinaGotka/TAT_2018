@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using task_DEV7.Commands;
 
 namespace task_7
 {
@@ -25,6 +24,9 @@ namespace task_7
         {
             this.receiver = rec;
         }
+        public Invoker()
+        {
+        }
 
         /// <summary>
         ///  This method for accepting input data
@@ -35,7 +37,7 @@ namespace task_7
             Console.Write("Number of brand:");
             brand = InputBrand();
 
-            Console.WriteLine("Number of model:");
+            Console.WriteLine("Model:");
             model = InputModel();
 
             Console.WriteLine("Number of type of Body:");
@@ -60,8 +62,7 @@ namespace task_7
             if (typeOfTransmission == "Automatic")
             {
                 typeOfInterior = "Leather";
-                Console.WriteLine("Automatic type of transmission was choosen and type of interior can be " +
-                                  "only leather.");
+                Console.WriteLine("Automatic type of transmission was choosen and type of interior can only be leather.");
             }
             else
             {
@@ -70,25 +71,7 @@ namespace task_7
            
             Car car = CreateCar(brand,model, typeOfBody, typeOfTransmission, typeOfEngine,
                                 amount, power, climateManagement, typeOfInterior);
-            bool storage = false;
-            Console.Write("View first cars in storage? (yes/no): ");  
-            storage = (Console.ReadLine() == "yes") ? true :  false;
-            if (storage)
-            {
-                Console.WriteLine("Available variants in storage:  ");
-                ICommand command = new FindCarsFromStorage(receiver);
-                IEnumerable<Car> cars = command.Execute(car);
-                receiver.DisplayCars(cars);
-                ChooseCarForProduse(cars);
-            }
-            else
-            {
-                Console.WriteLine("Available variants in catalog:  ");
-                ICommand command = new FindCarsFromCatalog(receiver);
-                IEnumerable<Car> cars = command.Execute(car);
-                receiver.DisplayCars(cars);
-                ChooseCarForProduse(cars);
-            }
+            SelectAppropriateCar(car);
         }
 
         /// <summary>
@@ -112,7 +95,12 @@ namespace task_7
         public int InputEnginePower()
         {
             int power = 0;
-            int.TryParse(Console.ReadLine(), out power);
+            do
+            {
+                int.TryParse(Console.ReadLine(), out power);
+                Console.WriteLine("Error.Power can not be negative.");
+            }
+            while (power < 0);
             return power;
         }
 
@@ -123,7 +111,12 @@ namespace task_7
         public int InputEngineAmount()
         {
             int amount = 0;
-            int.TryParse(Console.ReadLine(), out amount);
+            do
+            {
+                int.TryParse(Console.ReadLine(), out amount);
+                Console.WriteLine("Error.Power can not be negative.");
+            }
+            while (amount < 0);
             return amount;
         }
 
@@ -133,35 +126,38 @@ namespace task_7
         /// <returns>Returns the brand </returns>
         public string InputBrand()
         {
-            Console.WriteLine("\n1.BMW\n" +
-                "2.Audi\n" + "3.Mazda\n" + "4.Tesla\n" + "5.Volkswagen\n" +
-                "6.Land Rover\n");
+            Console.WriteLine("\n1.BMW\n2.Audi\n3.Mazda\n4.Tesla\n5.Volkswagen\n6.Land Rover\n");
             int number = 0;
-            int.TryParse(Console.ReadLine(), out number);
-            switch (number)
+            do
             {
-                case 1:
-                    brand = "BMW";
-                    break;
-                case 2:
-                    brand = "Audi";
-                    break;
-                case 3:
-                    brand = "Mazda";
-                    break;
-                case 4:
-                    brand = "Tesla";
-                    break;
-                case 5:
-                    brand = "Volksvagen";
-                    break;
-                case 6:
-                    brand = "Land Rover";
-                    break;
-                default:
-                    brand = null;
-                    break;
+                int.TryParse(Console.ReadLine(), out number);
+                switch (number)
+                {
+                    case 1:
+                        brand = "BMW";
+                        break;
+                    case 2:
+                        brand = "Audi";
+                        break;
+                    case 3:
+                        brand = "Mazda";
+                        break;
+                    case 4:
+                        brand = "Tesla";
+                        break;
+                    case 5:
+                        brand = "Volksvagen";
+                        break;
+                    case 6:
+                        brand = "Land Rover";
+                        break;
+                    default:
+                        number = 0;
+                        Console.WriteLine("Invalid input.Car brand is required.Please, repeat the select of brand.");
+                        break;
+                }
             }
+            while (number == 0);
             return brand;
         }
 
@@ -308,21 +304,36 @@ namespace task_7
         public void ChooseCarForProduse(IEnumerable<Car> cars)
         {
             List<Car> carList = new List<Car>(cars);
-            Console.WriteLine("Choose number of car for producing:  ");
-            string stringNumber = Console.ReadLine();
-            int n = 0;
-            int.TryParse(stringNumber, out n);
-            Car choosenCar = null;
-            if (n <= carList.Count && n > 0)
+            if (carList.Capacity == 0)
             {
-                choosenCar = carList[n - 1];
-                receiver.ProduceCar(choosenCar);
+                Console.WriteLine("No appropriate cars  in storage.");
+            }
+            else
+            {
+                Console.WriteLine("Choose number of car for producing:  ");
+                string stringNumber = Console.ReadLine();
+                int n = 0;
+                int.TryParse(stringNumber, out n);
+                Car choosenCar = null;
+                if (n <= carList.Count && n > 0)
+                {
+                    choosenCar = carList[n - 1];
+                    receiver.ProduceCar(choosenCar, @"C:\Users\Марина\Desktop\TAT_2018\task_DEV7\task_DEV7\storage.json");
+                }
             }
         }
-        
+
+        /// <summary>
+        ///  This methods for creating car with desired characteristics
+        /// </summary>
+        /// <returns>Returns the car with desired characteristics</returns>
         public Car CreateCar(string brand, string model, string typeOfBody, string typeOfTransmission, string typeOfEngine,
                              int amount, int power, string climateManagement, string typeOfInterior)
         {
+            if(brand == null)
+            {
+                throw new Exception("Error.Brand does not exist.");
+            }
             Car car = null;
             switch (brand)
             {
@@ -355,6 +366,35 @@ namespace task_7
                     break;
             }
             return car;
+        }
+
+        /// <summary>
+        ///  This methods method for selecting where to search car( in a storage or in a catalog)
+        /// </summary>
+        public void SelectAppropriateCar(Car car)
+        {
+            bool storage = false;
+            Console.Write("View first cars in storage? (yes/no): ");
+            storage = (Console.ReadLine() == "yes") ? true : false;
+            if (storage)
+            {
+                Console.WriteLine("Available variants in storage:  ");
+                ICommand command = new FindCarsFromStorage(receiver);
+                IEnumerable<Car> cars = command.Execute(car, @"C:\Users\Марина\Desktop\TAT_2018\task_DEV7\task_DEV7\storage.json");
+                receiver.DisplayCars(cars);
+                ChooseCarForProduse(cars);
+            }
+            bool catalog = false;
+            Console.Write("View cars in catalog? (yes/no): ");
+            catalog = (Console.ReadLine() == "yes") ? true : false;
+            if (catalog)
+            {
+                Console.WriteLine("Available variants in catalog:  ");
+                ICommand command = new FindCarsFromCatalog(receiver);
+                IEnumerable<Car> cars = command.Execute(car, @"C:\Users\Марина\Desktop\TAT_2018\task_DEV7\task_DEV7\catalog.json");
+                receiver.DisplayCars(cars);
+                ChooseCarForProduse(cars);
+            }
         }
     }
 }

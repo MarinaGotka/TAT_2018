@@ -21,9 +21,9 @@ namespace Client
                 DaysADCounter webServis = new DaysADCounter();
                 Console.WriteLine("Count of days from Anno Domini to the entered date: " + webServis.CalculateDaysFromAD(day, month, year));
             }
-            catch (ArgumentException exception)
+            catch (Exception ex)
             {
-                Console.WriteLine(exception.Message);
+                Console.WriteLine(ex.Message);
             }
         }
     }
